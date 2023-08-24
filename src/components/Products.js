@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { getProducts, clearError } from "../../actions/ProductActions";
+import { getProducts, clearError } from "../actions/ProductsActions.js";
 import "./Products.css";
 // import Loader from "../layout/loader/Loader";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
-// import ProductCard from "../home/ProductCard";
-// import { useParams } from "react-router-dom";
+import ProductCard from "./ProductCard";
+import { useParams } from "react-router-dom";
 // import Pagination from "react-js-pagination";
 // import MetaData from "../layout/Metadata";
 
@@ -37,20 +37,20 @@ const Products = () => {
   const [ratings, setRatings] = useState(0);
 
   const dispatch = useDispatch();
-//   const params = useParams();
-//   const keyword = params.keyword;
+  const params = useParams();
+  const keyword = params.keyword;
 
-//   const { products, loading, error, resultPerPage, productsCount } =
-//     useSelector((state) => state.products);
+  const { products, loading, error, resultPerPage, productsCount } =
+    useSelector((state) => state.products);
 
-//   useEffect(() => {
-//     if (error) {
-//       alert.error(error);
-//       dispatch(clearError());
-//     }
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearError());
+    }
 
-//     dispatch(getProducts(keyword, currentPage, price, category, ratings));
-//   }, [dispatch, error, keyword, currentPage, price, category, ratings]);
+    dispatch(getProducts(keyword, currentPage, price, category, ratings));
+  }, [dispatch, error, keyword, currentPage, price, category, ratings]);
 
   return (
     <Fragment>
@@ -61,10 +61,10 @@ const Products = () => {
           {/* <MetaData title="PRODUCTS -- ECOMMERCE" /> */}
           <h2 className="productsHeading">Products</h2>
           <div className="products">
-            {/* {products &&
+            {products &&
               products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))} */}
+                <ProductCard key={product.id} product={product} />
+              ))}
           </div>
           {/* {resultPerPage < productsCount && (
             <div className="paginationBox">
